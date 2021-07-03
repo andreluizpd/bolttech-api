@@ -35,6 +35,10 @@ export async function updateTaskHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
+  if (task.completed) {
+    return res.sendStatus(401);
+  }
+
   if (String(task.user) !== userId) {
     return res.sendStatus(401);
   }
@@ -66,6 +70,10 @@ export async function deleteTaskHandler(req: Request, res: Response) {
 
   if (!task) {
     return res.sendStatus(404);
+  }
+
+  if (task.completed) {
+    return res.sendStatus(401);
   }
 
   if (String(task.user) !== String(userId)) {
