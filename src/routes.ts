@@ -6,6 +6,12 @@ import {
   deleteProjectHandler,
   listProjectHandler,
 } from './controller/project.controller';
+import {
+  createTaskHandler,
+  updateTaskHandler,
+  listTaskHandler,
+  deleteTaskHandler,
+} from './controller/task.controller';
 import { createUserHandler } from './controller/user.controller';
 import {
   createUserSessionHandler,
@@ -22,6 +28,11 @@ import {
   updateProjectSchema,
   deleteProjectSchema,
 } from './schema/project.schema';
+import {
+  createTaskSchema,
+  updateTaskSchema,
+  deleteTaskSchema,
+} from './schema/task.schema';
 
 export default function (app: Express) {
   app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
@@ -62,10 +73,34 @@ export default function (app: Express) {
   // List Projects
   app.get('/api/projects', listProjectHandler);
 
-  // // Delete a Project
+  // Delete a Project
   app.delete(
     '/api/projects/:projectId',
     [requiresUser, validateRequest(deleteProjectSchema)],
     deleteProjectHandler
+  );
+
+  // Create Task
+  app.post(
+    '/api/tasks',
+    [requiresUser, validateRequest(createTaskSchema)],
+    createTaskHandler
+  );
+
+  // Update a Task
+  app.put(
+    '/api/tasks/:taskId',
+    [requiresUser, validateRequest(updateTaskSchema)],
+    updateTaskHandler
+  );
+
+  // List Tasks by Project
+  app.get('/api/tasks/:projectId', listTaskHandler);
+
+  // Delete a Task
+  app.delete(
+    '/api/tasks/:taskId',
+    [requiresUser, validateRequest(deleteTaskSchema)],
+    deleteTaskHandler
   );
 }
