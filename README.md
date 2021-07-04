@@ -25,5 +25,10 @@ cp config/default.example.ts config/default.ts
 You are going to need a instance of a mongoDB server to set in the config file (config/default.ts) and a private key, you can use ssh-keygen or a online tool, I recommend [this one](https://travistidwell.com/jsencrypt/demo/)
 
 ## Routes And Usage
+You can run the application with the command: 
+```
+yarn start
+```
+
 You can use the api with the Postman [Collection](https://raw.githubusercontent.com/andreluizpd/bolttech-api/main/ProjectsAPI.json)
 
